@@ -31,7 +31,7 @@ from datetime import datetime,timedelta
     
 import os
 
-if False:
+if False: # This is a place holder for future realtime google quotes
     k = stockquote.from_google("GOOG")
 
     symbol=k['symbol']
@@ -64,21 +64,6 @@ if __name__ == "__main__":
     #And then storing the status in pairs
     #listObjProps(optPairs)
     symbolList={}
-#    listObjProps(optPairs)
-    #print optPairs.stats['BBBY AMAT']
-    #raw_input()
-    if True:
-        print "****"
-        for row in pairs:
-            #print row,pairs[row]
-            if pairs[row]: # and pairs[row]['position']==2 : #and 'IDX' in pairs[row]['shortSymbol']:
-                
-                print optPairs.stats[row]
-                print row,pairs[row]['position'],pairs[row]['currDate'],pairs[row]['longSymbol']\
-                ,pairs[row]['shortSymbol'],pairs[row]['currMavg'],pairs[row]['trigger'],pairs[row]['CV']
-        print "****"
-    listObjProps(optPairs)
-    raw_input()
     allPairs=[]
     #Three groups - 
     #Optimized pairs
@@ -87,7 +72,6 @@ if __name__ == "__main__":
     #Could be overlap between optimized and in progress
     
     #Put the optimized pairs and
-    
     #initalize parameters from optimized pairs
     #calPairs is a dictionary
     
@@ -101,7 +85,7 @@ if __name__ == "__main__":
     for pair in optPairs.stats:
         
         ratioQueue=fullRatioQueue[pair]
-        #This process should only sends 1 pair over at a time.
+        #This process should only send 1 pair over at a time.
         env.timesProcessed=0
         env.startDate=startDate
         initPairs(pairStats,pair)
@@ -130,9 +114,6 @@ if __name__ == "__main__":
         while len(env.prices[max(env.prices)]):
 
             analyzePairs(env,pairStats,pair,saveTotal)
-            #print saveTotal
-            #print "*** SaveTotal ***"
-            #raw_input()
             env.startDate+=timedelta(days=3)
             env.prices=sliceData(env.priceQueue,env.startDate,env.startDate+timedelta(days=3))
             env.ratioData=sliceData(ratioQueue,env.startDate,env.startDate+timedelta(days=3))
