@@ -22,7 +22,7 @@ from pairsObjects import *
 from createPairs import getRatios
 from createCorr import getCorr
 from analyzePairs import analyzePairs
-from stockquote import stockquote
+
 from datetime import datetime
 from pairsObjects import *
 
@@ -30,17 +30,6 @@ from createHistory import getHistory
 from datetime import datetime,timedelta
     
 import os
-
-if False:
-    k = stockquote.from_google("GOOG")
-
-    symbol=k['symbol']
-    if symbol not in priceData:
-        priceData[symbol]=[]
-
-    priceData[symbol].append((datetime.strptime(k['price_last_datetime'], '%b %d, %H:%M%p %Z'),0,0,0,k['price_last']))
-
-    print priceData[symbol]
 
 #*** Starts here ***
 def openDfile(fileName):
@@ -64,21 +53,16 @@ if __name__ == "__main__":
     #And then storing the status in pairs
     #listObjProps(optPairs)
     symbolList={}
-#    listObjProps(optPairs)
-    #print optPairs.stats['BBBY AMAT']
-    #raw_input()
-    if True:
-        print "****"
-        for row in pairs:
-            #print row,pairs[row]
-            if pairs[row]: # and pairs[row]['position']==2 : #and 'IDX' in pairs[row]['shortSymbol']:
-                
-                print optPairs.stats[row]
-                print row,pairs[row]['position'],pairs[row]['currDate'],pairs[row]['longSymbol']\
-                ,pairs[row]['shortSymbol'],pairs[row]['currMavg'],pairs[row]['trigger'],pairs[row]['CV']
-        print "****"
-    listObjProps(optPairs)
-    raw_input()
+
+    print "****"
+    for row in pairs:
+        #print row,pairs[row]
+        if pairs[row]: # and pairs[row]['position']==2 : #and 'IDX' in pairs[row]['shortSymbol']:
+            
+            print optPairs.stats[row]
+            print row,pairs[row]['position'],pairs[row]['currDate'],pairs[row]['longSymbol']\
+            ,pairs[row]['shortSymbol'],pairs[row]['currMavg'],pairs[row]['trigger'],pairs[row]['CV']
+    print "****"
     allPairs=[]
     #Three groups - 
     #Optimized pairs
@@ -130,9 +114,6 @@ if __name__ == "__main__":
         while len(env.prices[max(env.prices)]):
 
             analyzePairs(env,pairStats,pair,saveTotal)
-            #print saveTotal
-            #print "*** SaveTotal ***"
-            #raw_input()
             env.startDate+=timedelta(days=3)
             env.prices=sliceData(env.priceQueue,env.startDate,env.startDate+timedelta(days=3))
             env.ratioData=sliceData(ratioQueue,env.startDate,env.startDate+timedelta(days=3))
