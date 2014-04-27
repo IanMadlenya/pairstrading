@@ -31,6 +31,20 @@ from datetime import datetime,timedelta
     
 import os
 
+<<<<<<< HEAD
+=======
+if False: # This is a place holder for future realtime google quotes
+    k = stockquote.from_google("GOOG")
+
+    symbol=k['symbol']
+    if symbol not in priceData:
+        priceData[symbol]=[]
+
+    priceData[symbol].append((datetime.strptime(k['price_last_datetime'], '%b %d, %H:%M%p %Z'),0,0,0,k['price_last']))
+
+    print priceData[symbol]
+
+>>>>>>> 50b5b9f4926d4afc029c105d5025103af9c7cae8
 #*** Starts here ***
 def openDfile(fileName):
     return getObj(fileName)
@@ -53,6 +67,7 @@ if __name__ == "__main__":
     #And then storing the status in pairs
     #listObjProps(optPairs)
     symbolList={}
+<<<<<<< HEAD
 
     print "****"
     for row in pairs:
@@ -63,6 +78,8 @@ if __name__ == "__main__":
             print row,pairs[row]['position'],pairs[row]['currDate'],pairs[row]['longSymbol']\
             ,pairs[row]['shortSymbol'],pairs[row]['currMavg'],pairs[row]['trigger'],pairs[row]['CV']
     print "****"
+=======
+>>>>>>> 50b5b9f4926d4afc029c105d5025103af9c7cae8
     allPairs=[]
     #Three groups - 
     #Optimized pairs
@@ -71,7 +88,6 @@ if __name__ == "__main__":
     #Could be overlap between optimized and in progress
     
     #Put the optimized pairs and
-    
     #initalize parameters from optimized pairs
     #calPairs is a dictionary
     
@@ -85,7 +101,7 @@ if __name__ == "__main__":
     for pair in optPairs.stats:
         
         ratioQueue=fullRatioQueue[pair]
-        #This process should only sends 1 pair over at a time.
+        #This process should only send 1 pair over at a time.
         env.timesProcessed=0
         env.startDate=startDate
         initPairs(pairStats,pair)

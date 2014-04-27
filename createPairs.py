@@ -70,6 +70,7 @@ def getRatios():
                     # Also, need to keep track of correlation
                     # For each day we need to divide
                     symbol2dict=dict(symbol2Arry)
+                    doPairAppend=pairsHistory.append
                     for day in symbolArry:
                         dayDate=day[0]
                         dayClose=day[1]
@@ -77,7 +78,7 @@ def getRatios():
                             continue
                         day2Close=symbol2dict[dayDate]
                         
-                        pairsHistory.append((dayDate,log(round(np.divide(float(dayClose),float(day2Close)),5))))
+                        doPairAppend((dayDate,log(round(np.divide(float(dayClose),float(day2Close)),5))))
                     
                     #print pairsHistory
                     #print symbol,symbol2

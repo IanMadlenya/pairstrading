@@ -83,18 +83,22 @@ def getCorr():
                     logArry2=[]
                     symbolArry= map(lambda x:float(x),symbolArry)
                     symbol2Arry= map(lambda x:float(x),symbol2Arry)
-
+                    # This reduces the lookup time
+                    doAppend = corrHistory.append
+                    doAppend2 = corrHistory2.append
+                    doLogAppend = logArry.append
+                    doLogAppend2 = logArry2.append
                     for j in range(3,len(symbolArry)):
                         if j>0:
                             #print (float(j))*symbolArry[j-1]+(1-(float(j)))*((float(j-1))*symbolArry[j-1]+(1-(float(j-2))))
                             #The issue is that the division is only 1 day difference. 
                             #Not enough change
                             if j % 5 == 0:
-                                logArry.append(log(symbolArry[j]/float(symbolArry[j-5])))
-                                logArry2.append(log(symbol2Arry[j]/float(symbol2Arry[j-5])))
+                                doLogAppend(log(symbolArry[j]/float(symbolArry[j-5])))
+                                doLogAppend2(log(symbol2Arry[j]/float(symbol2Arry[j-5])))
 
-                    corrHistory.append(sp.stats.pearsonr(logArry,logArry2))
-                    corrHistory2.append(sp.stats.pearsonr(logArry2,logArry))
+                    doAppend(sp.stats.pearsonr(logArry,logArry2))
+                    doAppend2(sp.stats.pearsonr(logArry2,logArry))
 
                     #corrHistory.append(sp.stats.pearsonr(symbolArry,symbol2Arry))
                     #corrHistory2.append(sp.stats.pearsonr(symbol2Arry,symbolArry))
